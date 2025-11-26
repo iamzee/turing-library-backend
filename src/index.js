@@ -55,6 +55,30 @@ app.get("/api/v1/genres", async (req, res) => {
   return res.status(200).json(genres);
 })
 
+app.patch("/api/v1/genres/:genreId", async (req, res) => {
+  const updatedFields = req.body;
+  const genreId = req.params.genreId;
+
+  await prisma.genre.update({
+    where: {
+      id: Number(genreId)
+    },
+    data: updatedFields
+  })
+
+  res.status(200).json("OK")
+})
+
+app.delete("/api/v1/genres/:genreId", async (req, res) => {
+  const genreId = req.params.genreId;
+  await prisma.genre.delete({
+    where: {
+      id: Number(genreId)
+    }
+  })
+  return res.status(204).send();
+})
+
 app.listen(3001, () => {
   console.log("Server started on port 3001")
 });
