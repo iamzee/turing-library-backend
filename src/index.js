@@ -39,6 +39,17 @@ app.post("/api/v1/books", async (req, res) => {
   return res.status(201).json(result);
 })
 
+app.post("/api/v1/genres", async (req, res) => {
+  const { name, url } = req.body;
+  const genre = await prisma.genre.create({
+    data: {
+      name,
+      url
+    }
+  })
+  return res.status(201).json(genre);
+})
+
 app.listen(3001, () => {
   console.log("Server started on port 3001")
 });
