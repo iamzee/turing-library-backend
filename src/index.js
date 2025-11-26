@@ -50,6 +50,11 @@ app.post("/api/v1/genres", async (req, res) => {
   return res.status(201).json(genre);
 })
 
+app.get("/api/v1/genres", async (req, res) => {
+  const genres = await prisma.genre.findMany();
+  return res.status(200).json(genres);
+})
+
 app.listen(3001, () => {
   console.log("Server started on port 3001")
 });
